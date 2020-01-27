@@ -1,29 +1,27 @@
-'use strict'
-
 const colors = {
   green: {
-    wrapperBackground: '#E6E1C3',
-    headerBackground: '#C1C72C',
-    headerColor: 'black',
-    photoBorderColor: '#black'
+    wrapperBackground: "#E6E1C3",
+    headerBackground: "#C1C72C",
+    headerColor: "black",
+    photoBorderColor: "#black"
   },
-  blue: {
-    wrapperBackground: '#5F64D3',
-    headerBackground: '#26175A',
-    headerColor: 'white',
-    photoBorderColor: '#73448C'
+  purple: {
+    wrapperBackground: "#5F64D3",
+    headerBackground: "#26175A",
+    headerColor: "white",
+    photoBorderColor: "#73448C"
   },
   pink: {
-    wrapperBackground: '#879CDF',
-    headerBackground: '#FF8374',
-    headerColor: 'white',
-    photoBorderColor: '#FEE24C'
+    wrapperBackground: "#879CDF",
+    headerBackground: "#FF8374",
+    headerColor: "white",
+    photoBorderColor: "#FEE24C"
   },
   red: {
-    wrapperBackground: '#DE9967',
-    headerBackground: '#870603',
-    headerColor: 'white',
-    photoBorderColor: 'white'
+    wrapperBackground: "#DE9967",
+    headerBackground: "#870603",
+    headerColor: "white",
+    photoBorderColor: "white"
   }
 };
 
@@ -36,6 +34,7 @@ function generateHTML(data) {
       <meta http-equiv="X-UA-Compatible" content="ie=edge" />
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
       <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
+      
       <title>Document</title>
       <style>
           @page {
@@ -172,61 +171,12 @@ function generateHTML(data) {
             zoom: .75; 
           } 
          }
-      </style>;
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="photo-header">
-                <img src="${data.avatar_url}" alt="Profile Picture" />
-                <h1>Hi!</h1>
-                <h2>
-                My name is ${data.name}</h1>
-                <nav class="links-nav">
-                    <a class="nav-link" id="location" href="#"><h6><i class="fas fa-location-arrow"></i>${response.data.location}</h6></a>
-                    <a class="nav-link" id="GitHub" href="${response.data.html_url}"><h6><i class="fab fa-github"></i>GitHub</h6></a>
-                    <a class="nav-link" id="Portfolio" href="${response.data.blog}"><h6><i class="fas fa-rss-square"></i>Blog</h6></a>
-                </nav>
-            </div>
-            <main>
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h3>${data.bio}</h3>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <h3>Public Repositories</h3>
-                                <h4>${data.public_repos}</h4>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <h3>Followers</h3>
-                                <h4>${data.followers}</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <h3>GitHub Stars</h3>
-                                <h4>${data.stars}</h4>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <h3>Following</h3>
-                                <h4>${data.following}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </body>
-</html>`
-}
+      </style>
+  </head>
+  <body>
+      `
+        }
 
-module.exports = generateHTML;
+        module.exports = {
+            generateHTML : generateHTML
+        }
