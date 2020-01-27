@@ -1,5 +1,12 @@
 'use strict'
 
+const fs = require("fs")
+const axios = require("axios")
+const inquirer = require("inquirer")
+const generateHTML = require("./generateHTML")
+
+const data = {}
+
 const questions = [
     {
         type: "input",
@@ -9,7 +16,7 @@ const questions = [
     {
         type: "list",
         name: "color",
-        message: "What is your favorite color?",
+        message: "Pick your favorite color: ",
         choices: ["green", "blue", "pink", "red"],
     }
 ];

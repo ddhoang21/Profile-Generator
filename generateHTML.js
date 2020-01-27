@@ -189,18 +189,18 @@ function generateHTML(data) {
             <main>
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-12">
                         <h3>${data.bio}</h3>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-6">
                             <div class="card">
                                 <h3>Public Repositories</h3>
                                 <h4>${data.public_repos}</h4>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-6">
                             <div class="card">
                                 <h3>Followers</h3>
                                 <h4>${data.followers}</h4>
@@ -208,13 +208,13 @@ function generateHTML(data) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-6">
                             <div class="card">
                                 <h3>GitHub Stars</h3>
                                 <h4>${data.stars}</h4>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-6">
                             <div class="card">
                                 <h3>Following</h3>
                                 <h4>${data.following}</h4>
