@@ -4,6 +4,7 @@ const fs = require("fs")
 const axios = require("axios")
 const inquirer = require("inquirer")
 const generateHTML = require("./generateHTML")
+var pdf = require('html-pdf');
 
 const data = {}
 
