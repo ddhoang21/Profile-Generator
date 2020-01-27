@@ -17,16 +17,16 @@ const questions = [
         choices: ["green", "purple", "pink", "red"]
     }
 ];
-
+   
 function photoHeaderContainer (res){
     return `
-    <div class = "wrapper">
+    <div class = "wrapper">>
         <div class = "row">
             <div class = "photo-header col">
                 <img src = ${res.data.avatar_url}, alt="self-photo">
-                <h1> Hi! </h1>
-                <h2> My name is Duc-Hoang </h2>
-                <h3> currently at ${res.data.company}</h3>
+                <h1>Hi!</h1>
+                <h2>My name is Duc-Hoang Do</h2>
+                <h4>currently @ ${res.data.company}</h4>
                 <div class = "links-nav">
                     <div class = "nav-link"> <a href="https://www.google.com/maps/place/${res.data.location}">${res.data.location}</a></div>
                     <div class = "nav-link"> <a href=${res.data.html_url}>GitHub</a></div>
@@ -68,5 +68,13 @@ function statsContainer(res){
     </body>  `
 }
 
-function writeToFile(fileName, data) {}
-
+function writeToFile(fileName, data) {
+    return new Promise(function(resolve,reject){
+        fs.writeFile(fileName,data,function(err,data) {
+        if(err){
+            return reject(err);
+        }
+        resolve(data)
+        });
+    });
+}
