@@ -54,7 +54,7 @@ const topContainer = res => {
             <div class = "photo-header col">
                 <img src = ${res.data.avatar_url}, alt="self-photo">
                 <h1>Hi!</h1>
-                <h2>My name is Duc-Hoang Do</h2>
+                <h2>My name is ${res.data.name}</h2>
                 <h4>currently @ ${res.data.company}</h4>
                 <div class = "links-nav">
                     <div class = "nav-link"> <a href="https://www.google.com/maps/place/${res.data.location}" target="_blank">${res.data.location}</a></div>
