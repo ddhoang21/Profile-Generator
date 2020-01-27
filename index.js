@@ -24,8 +24,7 @@ const init = () => {
     .then(answer => {
         const username = answer.username
         let htmlPage = generatingHTML.generateHTML(answer);
-       
-    
+        
         const queryUrl = `https://api.github.com/users/${username}`
 
         axios.get(queryUrl).then(res => {
@@ -39,17 +38,17 @@ const init = () => {
             pdf.create(htmlPage, options).toFile(`./${username}Profile.pdf`, (err, res) => {
                 if (err) return console.log(err);
                 console.log(res); 
-            });
-        }) .catch(err => console.error(err));           
-            });
+                });
+            }) .catch(err => console.error(err));           
+        });
     })
-} 
+}
 
 init();
    
 const topContainer = res => {
     return `
-    <div class = "wrapper">>
+    <div class = "wrapper">
         <div class = "row">
             <div class = "photo-header col">
                 <img src = ${res.data.avatar_url}, alt="self-photo">
@@ -83,7 +82,7 @@ const mainContainer = res => {
             </div>
             <div class = "row">
                 <div class = "col card">
-                    <h3>Git Hub Stars</h3>
+                    <h3>GitHub Stars</h3>
                     <h4>0</h4>
                 </div>
                 <div class = "col card">

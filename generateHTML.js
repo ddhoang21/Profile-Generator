@@ -175,8 +175,8 @@ function generateHTML(data) {
   </head>
   <body>
       `
-        }
+}
 
-        module.exports = {
-            generateHTML : generateHTML
-        }
+module.exports = {
+    generateHTML : generateHTML
+}
