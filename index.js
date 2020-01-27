@@ -34,8 +34,14 @@ const init = () => {
             htmlPage = htmlPage + headerPic + mainInfo;
             writeToFile(`${username}Profile.html`, htmlPage)
         .then(data => {
-        })        
-        });
+            console.log("Your profile has been saved.")
+            let options = {format: "Letter"};
+            pdf.create(htmlPage, options).toFile(`./${username}Profile.pdf`, (err, res) => {
+                if (err) return console.log(err);
+                console.log(res); 
+            });
+        }) .catch(err => console.error(err));           
+            });
     })
 } 
 
@@ -78,7 +84,7 @@ const mainContainer = res => {
             <div class = "row">
                 <div class = "col card">
                     <h3>Git Hub Stars</h3>
-                    <h4>${res.data.public_gists}</h4>
+                    <h4>0</h4>
                 </div>
                 <div class = "col card">
                     <h3>Following</h3>
