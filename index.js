@@ -17,8 +17,31 @@ const questions = [
         choices: ["green", "purple", "pink", "red"]
     }
 ];
+
+const init = () => {
+    inquirer
+    .prompt(questions)
+    .then(answer => {
+        const username = answer.username
+        let htmlPage = generatingHTML.generateHTML(answer);
+       
+    
+        const queryUrl = `https://api.github.com/users/${username}`
+
+        axios.get(queryUrl).then(res => {
+            let headerPic = topContainer(res);
+            let mainInfo = mainContainer(res);
+            htmlPage = htmlPage + headerPic + mainInfo;
+            writeToFile(`${username}Profile.html`, htmlPage)
+        .then(data => {
+        })        
+        });
+    })
+} 
+
+init();
    
-function photoHeaderContainer (res){
+const topContainer = res => {
     return `
     <div class = "wrapper">>
         <div class = "row">
@@ -28,16 +51,16 @@ function photoHeaderContainer (res){
                 <h2>My name is Duc-Hoang Do</h2>
                 <h4>currently @ ${res.data.company}</h4>
                 <div class = "links-nav">
-                    <div class = "nav-link"> <a href="https://www.google.com/maps/place/${res.data.location}">${res.data.location}</a></div>
-                    <div class = "nav-link"> <a href=${res.data.html_url}>GitHub</a></div>
-                    <div class = "nav-link"> <a href=${res.data.blog}>Blog</a></div>
+                    <div class = "nav-link"> <a href="https://www.google.com/maps/place/${res.data.location}" target="_blank">${res.data.location}</a></div>
+                    <div class = "nav-link"> <a href=${res.data.html_url} target="_blank">GitHub</a></div>
+                    <div class = "nav-link"> <a href=${res.data.blog} target="_blank">Blog</a></div>
                 </div>
             </div>
         </div>
     `
 }
 
-function statsContainer(res){
+const mainContainer = res => {
     return `
     <main>
         <div class = container>
@@ -55,7 +78,7 @@ function statsContainer(res){
             <div class = "row">
                 <div class = "col card">
                     <h3>Git Hub Stars</h3>
-                    <h4>0</h4>
+                    <h4>${res.data.public_gists}</h4>
                 </div>
                 <div class = "col card">
                     <h3>Following</h3>
@@ -68,9 +91,9 @@ function statsContainer(res){
     </body>  `
 }
 
-function writeToFile(fileName, data) {
-    return new Promise(function(resolve,reject){
-        fs.writeFile(fileName,data,function(err,data) {
+const writeToFile = (fileName, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(fileName, data, (err,data) => {
         if(err){
             return reject(err);
         }
