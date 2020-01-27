@@ -19,32 +19,37 @@ const questions = [
 ];
 
 const init = () => {
-    inquirer
-    .prompt(questions)
-    .then(answer => {
+    inquirer.prompt(questions).then(answer => {
         const username = answer.username
         let htmlPage = generatingHTML.generateHTML(answer);
-        
-        const queryUrl = `https://api.github.com/users/${username}`
+        const queryURL = `https://api.github.com/users/${username}`
 
-        axios.get(queryUrl).then(res => {
-            let headerPic = topContainer(res);
+        axios.get(queryURL).then(res => {
+            let topInfo = topContainer(res);
             let mainInfo = mainContainer(res);
-            htmlPage = htmlPage + headerPic + mainInfo;
+            htmlPage = htmlPage + topInfo + mainInfo;
             writeToFile(`${username}Profile.html`, htmlPage)
-        .then(data => {
-            console.log("Your profile has been saved.")
+            console.log("Your profile has successfully been saved.")
             let options = {format: "Letter"};
             pdf.create(htmlPage, options).toFile(`./${username}Profile.pdf`, (err, res) => {
-                if (err) return console.log(err);
-                console.log(res); 
-                });
-            }) .catch(err => console.error(err));           
+                if (err) throw (err);
+            });
         });
     })
 }
 
 init();
+
+const writeToFile = (fileName, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(fileName, data, (err,data) => {
+        if(err){
+            return reject(err);
+        }
+        resolve(data)
+        });
+    });
+}
    
 const topContainer = res => {
     return `
@@ -94,15 +99,4 @@ const mainContainer = res => {
     </main>
     </div>
     </body>  `
-}
-
-const writeToFile = (fileName, data) => {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(fileName, data, (err,data) => {
-        if(err){
-            return reject(err);
-        }
-        resolve(data)
-        });
-    });
 }
