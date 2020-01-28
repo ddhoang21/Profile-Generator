@@ -30,9 +30,10 @@ const init = () => {
             htmlPage = htmlPage + topInfo + mainInfo;
             writeToFile(`${username}Profile.html`, htmlPage)
             console.log("Your profile has successfully been saved.")
+            
             let options = {format: "Letter"};
-            pdf.create(htmlPage, options).toFile(`./${username}Profile.pdf`, (err, res) => {
-                if (err) throw (err);
+            pdf.create(htmlPage, options).toFile(`./${username}Profile.pdf`, err => {
+                if (err) return console.error(err);
             });
         });
     })
