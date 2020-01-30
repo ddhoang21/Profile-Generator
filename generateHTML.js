@@ -178,5 +178,5 @@ function generateHTML(data) {
 }
 
 module.exports = {
-    generateHTML : generateHTML
+  generateHTML : generateHTML
 }
