@@ -3,7 +3,7 @@
 const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
-const pdf = require('html-pdf');
+const pdf = require("html-pdf");
 const generatingHTML = require("./generateHTML.js");
 
 const questions = [
@@ -24,27 +24,34 @@ const init = () => {
     inquirer.prompt(questions)
     .then(input => {
         const username = input.username
-        let htmlPage = generatingHTML.generateHTML(input);
+        let HTMLPage = generatingHTML.generateHTML(input);
         const queryURL = `https://api.github.com/users/${username}`
-        // const queryURLStar = `https://api.github.com/users/${username}/repos`
+        const queryURLStar = `https://api.github.com/users/${username}/starred`
 
-        axios.get(queryURL)
-        .then(res => {
-            // axios.get(queryURLStar).then(response => {
-            let topInfo = topContainer(res);
-            let mainInfo = mainContainer(res);
-            htmlPage = htmlPage + topInfo + mainInfo;
-            writeToFile(`${username}.html`, htmlPage)
-            console.log("Your profile has successfully been saved.")
-
-            let options = {format: "Letter"};
-            pdf.create(htmlPage, options).toFile(`./${username}.pdf`, err => {
-                if (err) return console.error(err);
-            });
-            // });
-        })
+        axios.get(queryURLStar)
+        .then(response => {
+            let starsCount = 0;
+            for (let i = 0; i < response.data.length; ++i) {
+                starsCount += response.data[i].stargazers_count;
+            };
+            
+            axios.get(queryURL)
+            .then(res => {
+                let topInfo = topContainer(res);
+                let mainInfo = mainContainer(res, starsCount);
+                HTMLPage = HTMLPage + topInfo + mainInfo;
+                writeToFile(`${username}.html`, HTMLPage)
+                console.log("Your profile has successfully been saved.")
+                
+                let options = {format: "Letter"};
+                pdf.create(HTMLPage, options).toFile(`./${username}.pdf`, err => {
+                    if (err) return console.error(err);
+                });
+            })
+        }) 
     })
-}   
+    .catch(err => console.error(err));
+}
 
 init();
 
@@ -78,7 +85,7 @@ const topContainer = res => {
     `
 }
 
-const mainContainer = res => {
+const mainContainer = (res, starsCount) => {
     return `
     <main>
         <div class="container">
@@ -96,7 +103,7 @@ const mainContainer = res => {
             <div class="row">
                 <div class="col card">
                     <h3>GitHub Stars</h3>
-                    <h4>3</h4>
+                    <h4>${starsCount}</h4>
                 </div>
                 <div class="col card">
                     <h3>Following</h3>
