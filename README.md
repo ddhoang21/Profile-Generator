@@ -29,7 +29,7 @@ Project is created with :
 - Install axios, inquirer and html-pdf with the command:
 
 ```sh
-node install
+npm install
 ```
 - Start the application with the following command:
 
